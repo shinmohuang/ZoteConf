@@ -5,136 +5,139 @@
 <h1 align="center">ZoteConf</h1>
 
 <p align="center">
-  把 Zotero 里的 arXiv 预印本，自动换成它正式发表的那个版本。<br>
-  <sub>A Zotero plugin that finds where an arXiv preprint was actually published and updates the item in place.</sub>
+  Turn the arXiv preprints in your Zotero library into the papers they were published as.
+</p>
+
+<p align="center">
+  English | <a href="README.zh-CN.md">简体中文</a>
 </p>
 
 ---
 
-从 arXiv 存进 Zotero 的论文，很多其实早就发表在 ICML、ACL、CVPR 上了，但条目还是“预印本”，引用时还得自己去查。ZoteConf 在你**添加条目的那一刻**就去查它的正式发表信息，查到就把条目原地更新成会议论文或期刊文章；暂时没发表的，之后定期自动重查。
+Many papers you save from arXiv have long since appeared at ICML, ACL or CVPR, but the Zotero item still says "Preprint" and you end up looking up the real venue by hand when you cite it. ZoteConf looks up the published version **the moment you add the item**. If it finds one, it updates the item in place to a conference paper or journal article. If the paper is not published yet, it checks again later.
 
-## 功能
+## Features
 
-- **添加即查**：新加入的 arXiv 预印本几秒后自动查找，查到就转换，右下角提示 `标题 → ICML 2025`。
-- **原地更新**：只改条目类型和元数据，PDF、笔记、标注、标签、分类全部保留；arXiv 号保留在 Extra（`arXiv: 2010.11929`）。
-- **没发表的自动重查**：记入待查列表，每篇最多每 7 天查一次，直到查到为止。
-- **存量批量处理**：选中任意多个条目，右键“查找正式发表版本”，带进度条。
-- **丢了 arXiv 号也能查**：被别的工具转错、手动改回“预印本”的条目，或直接从 OpenReview 存的稿子，会按标题和作者反查。
-- **会议名写成评级插件认得的形式**：`ICML2026`、`NeurIPS2024`，方便 Ethereal Style 等插件显示 CCF 等级。
-- **宁可漏，不可错**：按标题匹配的数据源必须标题和作者都对上；workshop、投稿中、被拒的版本不算发表。
+- **Lookup on add.** A newly added arXiv preprint is checked a few seconds later. When a published version is found, the item is converted and a popup shows `Title → ICML 2025`.
+- **In-place update.** Only the item type and metadata change. PDFs, notes, annotations, tags and collections stay, and the arXiv ID is kept in Extra (`arXiv: 2010.11929`).
+- **Automatic re-checks.** Papers that are not published yet go on a pending list and are re-checked at most once every 7 days until a published version turns up.
+- **Batch processing.** Select any number of existing items, right-click, and choose **Find Published Version**. A progress bar shows where it is.
+- **Works without an arXiv ID.** Preprints that lost their ID (converted wrongly by another tool and switched back by hand, or saved straight from OpenReview) are identified by title and authors.
+- **Conference names that ranking plugins recognise.** The Conference Name field is written as `ICML2026` or `NeurIPS2024`, so plugins such as Ethereal Style can show CCF ranks.
+- **Miss rather than mismatch.** Title-based sources must match on both title and authors. Workshop versions, submissions under review and rejected papers do not count as published.
 
-## 安装
+## Installation
 
-1. 到 [Releases](https://github.com/shinmohuang/ZoteConf/releases/latest) 下载 `zoteconf-x.y.z.xpi`（Firefox 用户请右键“链接另存为”）。
-2. Zotero → 工具 → 插件 → 右上角齿轮 → Install Plugin From File…，选择下载的文件。
+1. Download `zoteconf-x.y.z.xpi` from [Releases](https://github.com/shinmohuang/ZoteConf/releases/latest). In Firefox, right-click the link and choose "Save Link As".
+2. In Zotero, open Tools → Plugins, click the gear icon, choose "Install Plugin From File…" and select the file.
 
-需要 Zotero 8–10。装好后无需配置。
+Requires Zotero 8–10. No configuration is needed.
 
-> 如果同时装着 [arXiv Workflow](https://github.com/AllanChain/zotero-arxiv-workflow) 之类会改同一批条目的插件，建议只留一个开着自动处理。
+> If you also run a plugin that edits the same items, such as [arXiv Workflow](https://github.com/AllanChain/zotero-arxiv-workflow), leave automatic processing on in only one of them.
 
-## 使用
+## Usage
 
-| 场景 | 做法 |
+| Situation | What to do |
 |---|---|
-| 新添加的 arXiv 论文 | 什么都不用做 |
-| 库里已有的预印本 | 选中（可多选）→ 右键 → **查找正式发表版本** |
-| 被转错的条目 | 把“条目类型”改回“预印本”，再右键查找 |
+| A newly added arXiv paper | Nothing |
+| Preprints already in your library | Select them (multiple is fine) → right-click → **Find Published Version** |
+| An item that was converted wrongly | Change its Item Type back to "Preprint", then right-click and look it up again |
 
-右键菜单只在选中项里有“预印本”类型的条目时出现。
+The menu entry appears only when the selection contains at least one item of type Preprint.
 
-### 转换后条目长什么样
+### What a converted item looks like
 
-| 字段 | 内容 |
+| Field | Content |
 |---|---|
-| 条目类型 | 会议论文 / 期刊文章 |
-| 作者 | 正式发表版的作者列表 |
-| 会议名称 | `ICML2026` 这类简称（规则见下） |
-| 论文集标题 / 期刊 | 完整名称 |
-| 日期、页码、DOI、出版社 | 正式发表版的 |
-| URL | 正式版链接（DOI 或 OpenReview） |
-| Extra | 加一行 `arXiv: <编号>`，原有内容保留 |
-| 标题、摘要 | 原来有就不动 |
+| Item Type | Conference Paper or Journal Article |
+| Authors | The author list of the published version |
+| Conference Name | A short form such as `ICML2026` (rules below) |
+| Proceedings Title / Publication | The full name |
+| Date, Pages, DOI, Publisher | From the published version |
+| URL | The published version (DOI link or OpenReview) |
+| Extra | A line `arXiv: <id>` is added; existing content is kept |
+| Title, Abstract | Left alone if already present |
 
-## 会议名称的规则
+## Conference name rules
 
-“会议名称”字段是 Ethereal Style 等插件用来查 CCF 等级的（它们把这个字段原样发给 easyScholar），所以统一写成能被识别的形式：
+Ranking plugins such as Ethereal Style send the Conference Name field as-is to easyScholar to look up the CCF rank, so ZoteConf writes it in a form that lookup recognises:
 
-| 情况 | 写法 |
+| Case | Written as |
 |---|---|
-| 一般会议 | 简称+年份，无空格：`ICML2026`、`NeurIPS2024`、`CVPR2025` |
-| ICLR | `International Conference on Learning Representations`（easyScholar 不认 `ICLR` 的简称写法） |
-| ACL 系 Findings | `Findings of the Association for Computational Linguistics: EMNLP 2024`，避免被算成主会 |
-| 认不出简称 | IEEE 的 DOI 里带简称就用它（`10.1109/ITSC45102.…` → `ITSC2020`），否则填论文集全名 |
+| Most conferences | Acronym plus year, no space: `ICML2026`, `NeurIPS2024`, `CVPR2025` |
+| ICLR | `International Conference on Learning Representations` (easyScholar does not recognise the acronym) |
+| ACL-family Findings | `Findings of the Association for Computational Linguistics: EMNLP 2024`, so it is not ranked as the main conference |
+| Acronym unknown | The acronym embedded in an IEEE DOI if there is one (`10.1109/ITSC45102.…` → `ITSC2020`), otherwise the full proceedings name |
 
-另外：
+Also:
 
-- **论文集按会议处理**。`Proceedings of the 41st IEEE/ACM International Conference on Automated Software Engineering` 这类名字，即使数据源把它标成期刊文章，也会转成会议论文并写成 `ASE2026`。真正叫 Proceedings 的期刊（PNAS、Proceedings of the IEEE、PVLDB、PACMPL 等）不受影响。
-- DBLP 里的 `NIPS` 统一写成 `NeurIPS`。
-- 没有 DOI 的期刊（JMLR、TMLR）会把 DBLP 的缩写展开成全称。
+- **Proceedings are treated as conferences.** A venue such as `Proceedings of the 41st IEEE/ACM International Conference on Automated Software Engineering` becomes a conference paper with the name `ASE2026`, even when the data source files it as a journal article. Real journals that happen to be called Proceedings (PNAS, Proceedings of the IEEE, PVLDB, PACMPL and similar) are not affected.
+- DBLP's `NIPS` is written as `NeurIPS`.
+- For journals that issue no DOI (JMLR, TMLR), DBLP's abbreviation is expanded to the full journal name.
 
-简称对照表在 [`src/core.js`](src/core.js) 的 `KNOWN_CONFERENCES`，欢迎提 PR 补充。
+The acronym table is `KNOWN_CONFERENCES` in [`src/core.js`](src/core.js). Pull requests that add venues are welcome.
 
-## 数据从哪来
+## Data sources
 
-按顺序查，命中即停：
+Sources are tried in this order, and the first hit wins:
 
-| # | 数据源 | 怎么查 |
+| # | Source | How it is queried |
 |---|---|---|
-| 1 | [DBLP](https://dblp.org)（SPARQL 端点） | 用 arXiv DOI 精确定位，再找同作者同标题的非 CoRR 记录 |
-| 2 | [arXiv](https://arxiv.org) | 作者自己填的 DOI |
-| 3 | [Semantic Scholar](https://www.semanticscholar.org) | 按 arXiv ID；遇到 429 退避重试 |
-| 4 | [OpenAlex](https://openalex.org) | 按标题，只采信自带 DOI 的发表记录 |
-| 5 | [Crossref](https://www.crossref.org) | 按标题 |
-| 6 | [OpenReview](https://openreview.net) | 按标题，能查到刚录用、别处还没收录的论文 |
+| 1 | [DBLP](https://dblp.org) (SPARQL endpoint) | Locate the CoRR record by arXiv DOI, then find a non-CoRR record with the same authors and title |
+| 2 | [arXiv](https://arxiv.org) | The DOI supplied by the authors |
+| 3 | [Semantic Scholar](https://www.semanticscholar.org) | By arXiv ID, with backoff on HTTP 429 |
+| 4 | [OpenAlex](https://openalex.org) | By title; only publication records with their own DOI are trusted |
+| 5 | [Crossref](https://www.crossref.org) | By title |
+| 6 | [OpenReview](https://openreview.net) | By title; catches fresh acceptances that nothing else has indexed yet |
 
-查到正式 DOI 时，用 Zotero 自带的 DOI 翻译器取完整元数据；没有 DOI 的（ICLR、NeurIPS、COLM 等）用数据源自己的会议名、论文集名、年份、页码。
+When a published DOI is found, full metadata comes from Zotero's own DOI translator. Venues that issue no DOI (ICLR, NeurIPS, COLM and others) use the source's own conference name, proceedings title, year and pages.
 
-插件只向以上公开 API 发送论文的 arXiv 号、标题和第一作者姓氏，不收集任何数据，也不需要注册账号。
+The plugin sends only a paper's arXiv ID, its title and the first author's surname to the public APIs above. It collects nothing and needs no account.
 
-## 设置
+## Settings
 
-暂时没有设置面板，在 设置 → 高级 → 配置编辑器 里修改：
+There is no settings pane yet. Change these in Settings → Advanced → Config Editor:
 
-| 首选项 | 默认 | 说明 |
+| Preference | Default | Meaning |
 |---|---|---|
-| `extensions.zoteconf.autoOnAdd` | `true` | 添加条目时自动查找 |
-| `extensions.zoteconf.recheckDays` | `7` | 未发表条目的重查间隔（天） |
-| `extensions.zoteconf.s2ApiKey` | 空 | [Semantic Scholar API key](https://www.semanticscholar.org/product/api#api-key-form)，可选 |
+| `extensions.zoteconf.autoOnAdd` | `true` | Look up items automatically when they are added |
+| `extensions.zoteconf.recheckDays` | `7` | Days between re-checks of an unpublished paper |
+| `extensions.zoteconf.s2ApiKey` | empty | Optional [Semantic Scholar API key](https://www.semanticscholar.org/product/api#api-key-form) |
 
-Semantic Scholar 对匿名请求限流很严，经常返回 429。不填 key 也能用（多数论文在第 1 步就命中了），填了能多一个数据源。
+Semantic Scholar rate-limits anonymous requests heavily and often answers 429. The plugin works without a key, since most papers are found at step 1. A key adds one more working source.
 
-## 已知限制
+## Known limitations
 
-- 发表时改了标题的论文，如果 DBLP 和 Semantic Scholar 都没有把它和 arXiv 版本关联起来，就查不到。
-- 只在主会和期刊里找，不会把 workshop 版本当作正式发表。
-- 自动查找只针对带 arXiv 号的新条目；其他预印本需要手动右键。
-- 没有一键撤销；转错了可以把条目类型改回预印本再重查。
-- 会议简称靠一张对照表加规则识别，冷门会议可能只填得上全名。
+- A paper whose title changed on publication is not found unless DBLP or Semantic Scholar links it to the arXiv version.
+- Only main conferences and journals count. A workshop version is never treated as the published one.
+- The automatic lookup covers only new items that carry an arXiv ID. Other preprints need the right-click action.
+- There is no one-click undo. If a conversion is wrong, change the item type back to Preprint and look it up again.
+- Acronyms come from a lookup table plus a few rules, so a less common conference may get only its full name.
 
-遇到查错或查不到的论文，欢迎带上 arXiv 号提 [issue](https://github.com/shinmohuang/ZoteConf/issues)。调试日志在 帮助 → 调试输出记录，搜 `ZoteConf:`。
+If a paper is matched wrongly or not found, please open an [issue](https://github.com/shinmohuang/ZoteConf/issues) with its arXiv ID. For logs, enable Help → Debug Output Logging and search for `ZoteConf:`.
 
-## 开发
+## Development
 
-纯 JavaScript，没有依赖，也没有构建工具链。
+Plain JavaScript, with no dependencies and no build toolchain.
 
 ```sh
-npm test                           # 单元测试（node:test）
-npm run build                      # 生成 build/zoteconf-<version>.xpi
-node scripts/live-check.js         # 用真实 API 跑一遍查找链
-scripts/e2e.sh /tmp/zoteconf-e2e   # 在独立的临时 Zotero 实例里端到端验证（macOS，不碰你的文库）
+npm test                           # unit tests (node:test)
+npm run build                      # writes build/zoteconf-<version>.xpi
+node scripts/live-check.js         # run the lookup chain against the real APIs
+scripts/e2e.sh /tmp/zoteconf-e2e   # end-to-end check in a throwaway Zotero instance (macOS; your library is not touched)
 ```
 
-| 路径 | 内容 |
+| Path | Contents |
 |---|---|
-| `src/core.js` | 不依赖 Zotero 的纯逻辑：识别条目、解析各数据源、查找链、会议名规则、生成条目更新 |
-| `src/plugin.js` | Zotero 胶水层：触发时机、写条目、待查列表、菜单、进度条。依赖全部注入，可在 Node 下用假 Zotero 测试 |
-| `test/fixtures/` | 各 API 的真实响应（`*.synthetic.json` 为手写） |
+| `src/core.js` | Logic that does not need Zotero: identifying items, parsing each source, the lookup chain, conference name rules, building the item update |
+| `src/plugin.js` | Zotero glue: triggers, writing items, the pending list, the menu, the progress bar. All dependencies are injected, so it is tested under Node with a fake Zotero |
+| `test/fixtures/` | Real API responses (`*.synthetic.json` files are hand-written) |
 
-修 bug 的流程：先把出问题的论文的真实 API 响应存成 fixture，写一个失败的测试，再改代码。
+To fix a bug, save the real API response for the failing paper as a fixture, write a failing test, then change the code.
 
-## 致谢
+## Acknowledgements
 
-思路来自 [zotero-arxiv-workflow](https://github.com/AllanChain/zotero-arxiv-workflow)。感谢 DBLP、arXiv、Semantic Scholar、OpenAlex、Crossref、OpenReview 提供开放的数据接口。
+The idea comes from [zotero-arxiv-workflow](https://github.com/AllanChain/zotero-arxiv-workflow). Thanks to DBLP, arXiv, Semantic Scholar, OpenAlex, Crossref and OpenReview for their open data APIs.
 
 ## License
 

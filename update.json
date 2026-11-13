@@ -1,0 +1,18 @@
+{
+  "addons": {
+    "zoteconf@shinmohuang.github.io": {
+      "updates": [
+        {
+          "version": "0.4.0",
+          "update_link": "https://github.com/shinmohuang/ZoteConf/releases/download/v0.4.0/zoteconf-0.4.0.xpi",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "8.0",
+              "strict_max_version": "10.*"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

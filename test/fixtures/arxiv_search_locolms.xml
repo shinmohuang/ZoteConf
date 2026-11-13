@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/EtdExWlot27qlmpZOt3f/L0w2As</id>
+  <title>arXiv Query: search_query=ti:"Logically Consistent Language Models via Neuro Symbolic Integration"&amp;id_list=&amp;start=0&amp;max_results=5</title>
+  <updated>2026-11-13T17:43:35Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Logically+Consistent+Language+Models+via+Neuro+Symbolic+Integration%22&amp;start=0&amp;max_results=5&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>5</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2409.13724v1</id>
+    <title>Logically Consistent Language Models via Neuro-Symbolic Integration</title>
+    <updated>2024-09-09T10:52:57Z</updated>
+    <link href="https://arxiv.org/abs/2409.13724v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.13724v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large language models (LLMs) are a promising venue for natural language understanding and generation. However, current LLMs are far from reliable: they are prone to generating non-factual information and, more crucially, to contradicting themselves when prompted to reason about relations between entities of the world. These problems are currently addressed with large scale fine-tuning or by delegating reasoning to external tools. In this work, we strive for a middle ground and introduce a loss based on neuro-symbolic reasoning that teaches an LLM to be logically consistent with an external set of facts and rules and improves self-consistency even when the LLM is fine-tuned on a limited set of facts. Our approach also allows to easily combine multiple logical constraints at once in a principled way, delivering LLMs that are more consistent w.r.t. all constraints and improve over several baselines w.r.t. a given constraint. Moreover, our method allows LLMs to extrapolate to unseen but semantically similar factual knowledge, represented in unseen datasets, more systematically.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-09-09T10:52:57Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Diego Calanzone</name>
+    </author>
+    <author>
+      <name>Stefano Teso</name>
+    </author>
+    <author>
+      <name>Antonio Vergari</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "ZoteConf",
+  "version": "0.4.0",
+  "description": "Finds the published conference/journal version of arXiv preprints and updates the item in place",
+  "homepage_url": "https://github.com/shinmohuang/ZoteConf",
+  "author": "shinmohuang",
+  "icons": {
+    "48": "content/icons/icon.png",
+    "96": "content/icons/icon@2x.png"
+  },
+  "applications": {
+    "zotero": {
+      "id": "zoteconf@shinmohuang.github.io",
+      "update_url": "https://raw.githubusercontent.com/shinmohuang/ZoteConf/main/update.json",
+      "strict_min_version": "8.0",
+      "strict_max_version": "10.*"
+    }
+  }
+}

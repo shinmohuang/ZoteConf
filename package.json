@@ -1,0 +1,12 @@
+{
+  "name": "zoteconf",
+  "version": "0.4.0",
+  "description": "Zotero plugin: replace arXiv preprint metadata with the published version automatically",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "build": "node scripts/build.js"
+  },
+  "license": "MIT",
+  "repository": "github:shinmohuang/ZoteConf",
+  "private": true
+}

@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  <a href="https://zotero-chinese.com/plugins/"><img src="https://zotero-chinese.com/badges/listed.svg" alt="Listed in Zotero Chinese"></a>
+</p>
+
+<p align="center">
   English | <a href="README.zh-CN.md">简体中文</a>
 </p>
 
